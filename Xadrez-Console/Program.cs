@@ -17,7 +17,10 @@ internal class Program
             tabuleiro.AdicionarPeca(new Torre(tabuleiro, Cor.Preta), new Posicao(1, 3));
             tabuleiro.AdicionarPeca(new Rei(tabuleiro, Cor.Preta), new Posicao(3, 4));
 
+            tabuleiro.AdicionarPeca(new Rei(tabuleiro, Cor.Branca), new Posicao(7, 5));
             PosicaoXadrez posicaoXadrez = new PosicaoXadrez(8, 'a');
+
+            Tela.ImprimirTela(tabuleiro);
 
             Console.WriteLine(posicaoXadrez);
             Console.WriteLine(posicaoXadrez.ToPosicao());
