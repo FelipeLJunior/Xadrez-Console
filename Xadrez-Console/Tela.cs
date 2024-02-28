@@ -1,5 +1,6 @@
 ﻿using System;
 using EntidadesTabuleiro;
+using EntidadesTabuleiro.Enums;
 
 namespace Xadrez_Console
 {
