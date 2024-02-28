@@ -1,4 +1,4 @@
-﻿namespace Tabuleiro
+﻿namespace EntidadesTabuleiro
 {
     internal class Posicao
     {
