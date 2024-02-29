@@ -3,7 +3,6 @@ using EntidadesTabuleiro;
 using EntidadesTabuleiro.Enums;
 using EntidadesTabuleiro.Exceptions;
 using EntidadesXadrez;
-using Xadrez_Console.EntidadesXadrez;
 
 internal class Program
 {
@@ -11,19 +10,22 @@ internal class Program
     {
         try
         {
-            Tabuleiro tabuleiro = new Tabuleiro(8, 8);
+            PartidaDeXadrez partidaDeXadrez = new PartidaDeXadrez();
+            
+            while(!partidaDeXadrez.Terminada)
+            {
+                Console.Clear();
+                Tela.ImprimirTela(partidaDeXadrez.Tabuleiro);
 
-            tabuleiro.AdicionarPeca(new Torre(tabuleiro, Cor.Preta), new Posicao(0, 1));
-            tabuleiro.AdicionarPeca(new Torre(tabuleiro, Cor.Preta), new Posicao(1, 3));
-            tabuleiro.AdicionarPeca(new Rei(tabuleiro, Cor.Preta), new Posicao(3, 4));
+                Console.Write("Selecione uma peça: ");
+                Posicao origem = Tela.LerPosicaoXadrez();
 
-            tabuleiro.AdicionarPeca(new Rei(tabuleiro, Cor.Branca), new Posicao(7, 5));
-            PosicaoXadrez posicaoXadrez = new PosicaoXadrez(8, 'a');
+                Console.Write("Selecione o destino dela: ");
+                Posicao destino = Tela.LerPosicaoXadrez();
 
-            Tela.ImprimirTela(tabuleiro);
+                partidaDeXadrez.MovimentarPeca(origem, destino);
+            }
 
-            Console.WriteLine(posicaoXadrez);
-            Console.WriteLine(posicaoXadrez.ToPosicao());
 
         }
         catch(TabuleiroException e)

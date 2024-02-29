@@ -41,6 +41,19 @@ namespace EntidadesTabuleiro
             peca.Posicao = posicao;
         }
 
+        public Peca RemoverPeca(Posicao posicao)
+        {
+            if(Peca(posicao) == null)
+            {
+                return null;
+            }
+
+            Peca pecaRemovida = Peca(posicao);
+            pecaRemovida.Posicao = null;
+            _pecas[posicao.Linha, posicao.Coluna] = null;
+            return pecaRemovida;
+        }
+
         public bool VerificarPosicao(Posicao posicao)
         {
             if(posicao.Linha < 0 || posicao.Linha >= Linhas || 

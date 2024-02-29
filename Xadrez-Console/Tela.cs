@@ -1,6 +1,7 @@
 ﻿using System;
 using EntidadesTabuleiro;
 using EntidadesTabuleiro.Enums;
+using EntidadesXadrez;
 
 namespace Xadrez_Console
 {
@@ -28,6 +29,7 @@ namespace Xadrez_Console
                 }
                 Console.WriteLine();
             }
+            Console.WriteLine("  a b c d e f g h");
         }
 
         public static void ImprimirPeca(Peca peca)
@@ -43,6 +45,16 @@ namespace Xadrez_Console
                 Console.Write(peca);
                 Console.ForegroundColor = consoleColor;
             }
+        }
+
+        public static Posicao LerPosicaoXadrez()
+        {
+            string posicaoString = Console.ReadLine().ToLower();
+
+            char coluna = posicaoString[0];
+            int linha = int.Parse(posicaoString[1] + "");
+
+            return new PosicaoXadrez(coluna, linha).ToPosicao();
         }
     }
 }
