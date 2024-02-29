@@ -20,6 +20,11 @@ internal class Program
                 Console.Write("Selecione uma peça: ");
                 Posicao origem = Tela.LerPosicaoXadrez();
 
+                Console.Clear();
+                bool[,] possiveisMovimentos = partidaDeXadrez.Tabuleiro.Peca(origem).PossiveisMovimentos();
+                
+                Tela.ImprimirTela(partidaDeXadrez.Tabuleiro, possiveisMovimentos);
+
                 Console.Write("Selecione o destino dela: ");
                 Posicao destino = Tela.LerPosicaoXadrez();
 

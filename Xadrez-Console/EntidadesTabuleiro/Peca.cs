@@ -2,9 +2,8 @@
 
 namespace EntidadesTabuleiro
 {
-    internal class Peca
+    internal abstract class Peca
     {
-
         public Posicao Posicao { get; set; }
         public Cor Cor { get; protected set; }
         public int QuantidadeMovimentos { get; protected set; }
@@ -18,9 +17,18 @@ namespace EntidadesTabuleiro
             QuantidadeMovimentos = 0;
         }
 
+        public bool PodeMover(Posicao posicao)
+        {
+            Peca pecaNoDestino = Tabuleiro.Peca(posicao);
+
+            return pecaNoDestino == null || pecaNoDestino.Cor != Cor;
+        }
+
         public void IncrementarMovimento()
         {
             QuantidadeMovimentos++;
         }
+
+        public abstract bool[,] PossiveisMovimentos();
     }
 }
