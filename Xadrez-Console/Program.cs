@@ -15,9 +15,7 @@ internal class Program
             try
             {
             Console.Clear();
-            Tela.ImprimirTela(partidaDeXadrez.Tabuleiro);
-            Console.WriteLine($"\nTurno: {partidaDeXadrez.Turno}");
-            Console.WriteLine($"Aguardando Jogada das: {partidaDeXadrez.JogadorAtual}s");
+            Tela.ImprimirPartida(partidaDeXadrez);
 
             Console.Write("\nSelecione uma peça: ");
             Posicao origem = Tela.LerPosicaoXadrez();
