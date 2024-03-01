@@ -8,34 +8,39 @@ internal class Program
 {
     private static void Main(string[] args)
     {
-        try
+        PartidaDeXadrez partidaDeXadrez = new PartidaDeXadrez();
+        
+        while(!partidaDeXadrez.Terminada)
         {
-            PartidaDeXadrez partidaDeXadrez = new PartidaDeXadrez();
-            
-            while(!partidaDeXadrez.Terminada)
+            try
             {
-                Console.Clear();
-                Tela.ImprimirTela(partidaDeXadrez.Tabuleiro);
+            Console.Clear();
+            Tela.ImprimirTela(partidaDeXadrez.Tabuleiro);
+            Console.WriteLine($"\nTurno: {partidaDeXadrez.Turno}");
+            Console.WriteLine($"Aguardando Jogada das: {partidaDeXadrez.JogadorAtual}s");
 
-                Console.Write("Selecione uma peça: ");
-                Posicao origem = Tela.LerPosicaoXadrez();
+            Console.Write("\nSelecione uma peça: ");
+            Posicao origem = Tela.LerPosicaoXadrez();
 
-                Console.Clear();
-                bool[,] possiveisMovimentos = partidaDeXadrez.Tabuleiro.Peca(origem).PossiveisMovimentos();
+            partidaDeXadrez.ValidarPosicaoDeOrigem(origem);
+
+            Console.Clear();
+            bool[,] possiveisMovimentos = partidaDeXadrez.Tabuleiro.Peca(origem).PossiveisMovimentos();
                 
-                Tela.ImprimirTela(partidaDeXadrez.Tabuleiro, possiveisMovimentos);
+            Tela.ImprimirTela(partidaDeXadrez.Tabuleiro, possiveisMovimentos);
 
-                Console.Write("Selecione o destino dela: ");
-                Posicao destino = Tela.LerPosicaoXadrez();
+            Console.Write("\nSelecione o destino dela: ");
+            Posicao destino = Tela.LerPosicaoXadrez();
 
-                partidaDeXadrez.MovimentarPeca(origem, destino);
+            partidaDeXadrez.ValidarPosicaoDeDestino(origem, destino);
+
+            partidaDeXadrez.RealizarJogada(origem, destino);
             }
-
-
-        }
-        catch(TabuleiroException e)
-        {
-            Console.WriteLine(e.Message);
+            catch(TabuleiroException e)
+            {
+                Console.WriteLine(e.Message);
+                Console.ReadKey();
+            }
         }
 
         Console.ReadKey();

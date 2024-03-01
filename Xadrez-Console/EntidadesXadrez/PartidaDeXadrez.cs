@@ -1,6 +1,7 @@
 ﻿using System;
 using EntidadesTabuleiro;
 using EntidadesTabuleiro.Enums;
+using EntidadesTabuleiro.Exceptions;
 using EntidadesXadrez;
 
 namespace EntidadesXadrez
@@ -8,8 +9,8 @@ namespace EntidadesXadrez
     internal class PartidaDeXadrez
     {
         public Tabuleiro Tabuleiro { get; private set; }
-        public Cor JogadorAtual { get; set; }
-        public int Turno { get; set; }
+        public Cor JogadorAtual { get; private set; }
+        public int Turno { get; private  set; }
         public bool Terminada { get; private set; }
 
         public PartidaDeXadrez()
@@ -21,12 +22,54 @@ namespace EntidadesXadrez
             ColocarPecas();
         }
 
+        public void ValidarPosicaoDeOrigem(Posicao posicao)
+        {
+            if(Tabuleiro.Peca(posicao) == null)
+            {
+                throw new TabuleiroException("Não existe peça nessa posição!");
+            }
+            if(Tabuleiro.Peca(posicao).Cor != JogadorAtual)
+            {
+                throw new TabuleiroException("Essa peça pertence ao outro jogador!");
+            }
+            if(!Tabuleiro.Peca(posicao).ExisteMovimento(posicao))
+            {
+                throw new TabuleiroException("Essa peça não possui movimentos possíveis!");
+            }
+        }
+        public void ValidarPosicaoDeDestino(Posicao posicaoDeOrigem, Posicao posicaoDeDestino)
+        {
+            if(!Tabuleiro.Peca(posicaoDeOrigem).PodeMoverPara(posicaoDeDestino))
+            {
+                throw new TabuleiroException("Não pode mover para essa posição!");
+            }
+        }
+
         public void MovimentarPeca(Posicao origem, Posicao destino)
         {
             Peca pecaSelecionada = Tabuleiro.RemoverPeca(origem);
             pecaSelecionada.IncrementarMovimento();
             Peca pecaCapturada = Tabuleiro.RemoverPeca(destino);
             Tabuleiro.AdicionarPeca(pecaSelecionada, destino);
+        }
+
+        public void RealizarJogada(Posicao origem, Posicao destino)
+        {
+            MovimentarPeca(origem, destino);
+            Turno++;
+            MudarJogador();
+        }
+
+        private void MudarJogador()
+        {
+            if(JogadorAtual == Cor.Branca)
+            {
+                JogadorAtual = Cor.Preta;
+            }
+            else
+            {
+                JogadorAtual = Cor.Branca;
+            }
         }
 
         public void ColocarPecas()

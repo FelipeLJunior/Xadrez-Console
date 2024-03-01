@@ -29,6 +29,27 @@ namespace EntidadesTabuleiro
             QuantidadeMovimentos++;
         }
 
+        public bool PodeMoverPara(Posicao posicao)
+        {
+            return PossiveisMovimentos()[posicao.Linha, posicao.Coluna];
+        }
+
+        public bool ExisteMovimento(Posicao pos)
+        {
+            bool[,] possiveisMovimentos = PossiveisMovimentos();
+            for(int  i = 0; i < Tabuleiro.Linhas; i++)
+            {
+                for(int j = 0; j < Tabuleiro.Colunas; j++)
+                {
+                    if (possiveisMovimentos[i, j])
+                    {
+                        return true;
+                    }
+                }
+            }
+            return false;
+        }
+
         public abstract bool[,] PossiveisMovimentos();
     }
 }
