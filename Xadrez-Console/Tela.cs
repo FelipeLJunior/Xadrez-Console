@@ -1,5 +1,4 @@
-﻿using System;
-using EntidadesTabuleiro;
+﻿using EntidadesTabuleiro;
 using EntidadesTabuleiro.Enums;
 using EntidadesXadrez;
 
@@ -10,13 +9,25 @@ namespace Xadrez_Console
 
         public static void ImprimirPartida(PartidaDeXadrez partida)
         {
-            Tela.ImprimirTela(partida.Tabuleiro);
+            Tela.ImprimirTabuleiro(partida.Tabuleiro);
             ImprimirPecasCapturadas(partida);
             Console.WriteLine($"\nTurno: {partida.Turno}");
+
+            if(partida.Terminada)
+            {
+                Console.WriteLine("XEQUEMATE!");
+                Console.WriteLine($"O vencedor: {partida.JogadorAtual}");
+                return;
+            }
+
             Console.WriteLine($"Aguardando Jogada das: {partida.JogadorAtual}s");
+            if(partida.Xeque)
+            {
+                Console.WriteLine("XEQUE!");
+            }
         }
 
-        public static void ImprimirTela(Tabuleiro tabuleiro)
+        public static void ImprimirTabuleiro(Tabuleiro tabuleiro)
         {
             for(int i = 0; i < tabuleiro.Linhas; i++)
             {
@@ -32,7 +43,7 @@ namespace Xadrez_Console
             Console.WriteLine("  a b c d e f g h\n");
         }
         
-        public static void ImprimirTela(Tabuleiro tabuleiro, bool[,] possiveisMovimentos)
+        public static void ImprimirTabuleiro(Tabuleiro tabuleiro, bool[,] possiveisMovimentos)
         {
             ConsoleColor fundoOriginal = Console.BackgroundColor;
             ConsoleColor fundoAlterado = ConsoleColor.DarkGray;
@@ -78,9 +89,9 @@ namespace Xadrez_Console
             Console.Write("[ ");
             foreach(Peca elemento in conjunto)
             {
-                Console.Write(elemento);
+                Console.Write(elemento + " ");
             }
-            Console.Write(" ]");
+            Console.Write("]");
         }
 
         public static void ImprimirPeca(Peca peca)

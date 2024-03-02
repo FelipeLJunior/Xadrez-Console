@@ -1,5 +1,6 @@
 ﻿using EntidadesTabuleiro;
 using EntidadesTabuleiro.Enums;
+using System.Runtime.ConstrainedExecution;
 
 namespace EntidadesXadrez
 {
@@ -15,64 +16,62 @@ namespace EntidadesXadrez
             return "T";
         }
 
-        public override bool[,] PossiveisMovimentos()
+        public override bool[,] MovimentosPossiveis()
         {
-            bool[,] possiveisMovimentos = new bool[Tabuleiro.Linhas, Tabuleiro.Colunas];
+            bool[,] movimentosPossiveis = new bool[Tabuleiro.Linhas, Tabuleiro.Colunas];
 
-            Posicao posicaoProvavel = new Posicao(0, 0);
+            Posicao provavelPosicao = new Posicao(0, 0);
 
-            // Acima
-            posicaoProvavel.DefinirValores(Posicao.Linha - 1, Posicao.Coluna);
-            while(Tabuleiro.VerificarPosicao(posicaoProvavel) && PodeMover(posicaoProvavel))
+            // acima
+            provavelPosicao.DefinirValores(Posicao.Linha - 1, Posicao.Coluna);
+            while (Tabuleiro.PosicaoValida(provavelPosicao) && PodeMover(provavelPosicao))
+
             {
-                possiveisMovimentos[posicaoProvavel.Linha, posicaoProvavel.Coluna] = true;
-                if(Tabuleiro.Peca(posicaoProvavel) != null && Tabuleiro.Peca(posicaoProvavel).Cor != Cor)
+                movimentosPossiveis[provavelPosicao.Linha, provavelPosicao.Coluna] = true;
+                if (Tabuleiro.Peca(provavelPosicao) != null && Tabuleiro.Peca(provavelPosicao).Cor != Cor)
                 {
                     break;
                 }
-
-                posicaoProvavel.Linha--;
+                provavelPosicao.Linha = provavelPosicao.Linha - 1;
             }
-            
-            // Direita
-            posicaoProvavel.DefinirValores(Posicao.Linha, Posicao.Coluna + 1);
-            while(Tabuleiro.VerificarPosicao(posicaoProvavel) && PodeMover(posicaoProvavel))
+
+            // abaixo
+            provavelPosicao.DefinirValores(Posicao.Linha + 1, Posicao.Coluna);
+            while (Tabuleiro.PosicaoValida(provavelPosicao) && PodeMover(provavelPosicao))
             {
-                possiveisMovimentos[posicaoProvavel.Linha, posicaoProvavel.Coluna] = true;
-                if(Tabuleiro.Peca(posicaoProvavel) != null && Tabuleiro.Peca(posicaoProvavel).Cor != Cor)
+                movimentosPossiveis[provavelPosicao.Linha, provavelPosicao.Coluna] = true;
+                if (Tabuleiro.Peca(provavelPosicao) != null && Tabuleiro.Peca(provavelPosicao).Cor != Cor)
                 {
                     break;
                 }
-
-                posicaoProvavel.Coluna++;
+                provavelPosicao.Linha = provavelPosicao.Linha + 1;
             }
-            
-            // Abaixo
-            posicaoProvavel.DefinirValores(Posicao.Linha + 1, Posicao.Coluna);
-            while(Tabuleiro.VerificarPosicao(posicaoProvavel) && PodeMover(posicaoProvavel))
+
+            // direita
+            provavelPosicao.DefinirValores(Posicao.Linha, Posicao.Coluna + 1);
+            while (Tabuleiro.PosicaoValida(provavelPosicao) && PodeMover(provavelPosicao))
             {
-                possiveisMovimentos[posicaoProvavel.Linha, posicaoProvavel.Coluna] = true;
-                if(Tabuleiro.Peca(posicaoProvavel) != null && Tabuleiro.Peca(posicaoProvavel).Cor != Cor)
+                movimentosPossiveis[provavelPosicao.Linha, provavelPosicao.Coluna] = true;
+                if (Tabuleiro.Peca(provavelPosicao) != null && Tabuleiro.Peca(provavelPosicao).Cor != Cor)
                 {
                     break;
                 }
-                posicaoProvavel.Linha++;
+                provavelPosicao.Coluna = provavelPosicao.Coluna + 1;
             }
-            
-            // Esquerda
-            posicaoProvavel.DefinirValores(Posicao.Linha, Posicao.Coluna - 1);
-            while(Tabuleiro.VerificarPosicao(posicaoProvavel) && PodeMover(posicaoProvavel))
+
+            // esquerda
+            provavelPosicao.DefinirValores(Posicao.Linha, Posicao.Coluna - 1);
+            while (Tabuleiro.PosicaoValida(provavelPosicao) && PodeMover(provavelPosicao))
             {
-                possiveisMovimentos[posicaoProvavel.Linha, posicaoProvavel.Coluna] = true;
-                if(Tabuleiro.Peca(posicaoProvavel) != null && Tabuleiro.Peca(posicaoProvavel).Cor != Cor)
+                movimentosPossiveis[provavelPosicao.Linha, provavelPosicao.Coluna] = true;
+                if (Tabuleiro.Peca(provavelPosicao) != null && Tabuleiro.Peca(provavelPosicao).Cor != Cor)
                 {
                     break;
                 }
-
-                posicaoProvavel.Coluna--;
+                provavelPosicao.Coluna = provavelPosicao.Coluna - 1;
             }
 
-            return possiveisMovimentos;
+            return movimentosPossiveis;
         }
     }
 }

@@ -54,7 +54,7 @@ namespace EntidadesTabuleiro
             return pecaRemovida;
         }
 
-        public bool VerificarPosicao(Posicao posicao)
+        public bool PosicaoValida(Posicao posicao)
         {
             if(posicao.Linha < 0 || posicao.Linha >= Linhas || 
                posicao.Coluna < 0 || posicao.Coluna >= Colunas)
@@ -67,7 +67,7 @@ namespace EntidadesTabuleiro
 
         public void ValidarPosicao(Posicao posicao)
         {
-            if(!VerificarPosicao(posicao))
+            if(!PosicaoValida(posicao))
             {
                 throw new TabuleiroException("Posição inválida!");
             }

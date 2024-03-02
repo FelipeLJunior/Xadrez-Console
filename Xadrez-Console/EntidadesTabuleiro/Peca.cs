@@ -17,6 +17,16 @@ namespace EntidadesTabuleiro
             QuantidadeMovimentos = 0;
         }
 
+        public void IncrementarMovimento()
+        {
+            QuantidadeMovimentos++;
+        }
+
+        public void DecrementarMovimento()
+        {
+            QuantidadeMovimentos--;
+        }
+
         public bool PodeMover(Posicao posicao)
         {
             Peca pecaNoDestino = Tabuleiro.Peca(posicao);
@@ -24,24 +34,14 @@ namespace EntidadesTabuleiro
             return pecaNoDestino == null || pecaNoDestino.Cor != Cor;
         }
 
-        public void IncrementarMovimento()
-        {
-            QuantidadeMovimentos++;
-        }
-
-        public bool PodeMoverPara(Posicao posicao)
-        {
-            return PossiveisMovimentos()[posicao.Linha, posicao.Coluna];
-        }
-
         public bool ExisteMovimento(Posicao pos)
         {
-            bool[,] possiveisMovimentos = PossiveisMovimentos();
+            bool[,] movimentosPossiveis = MovimentosPossiveis();
             for(int  i = 0; i < Tabuleiro.Linhas; i++)
             {
                 for(int j = 0; j < Tabuleiro.Colunas; j++)
                 {
-                    if (possiveisMovimentos[i, j])
+                    if (movimentosPossiveis[i, j])
                     {
                         return true;
                     }
@@ -50,6 +50,11 @@ namespace EntidadesTabuleiro
             return false;
         }
 
-        public abstract bool[,] PossiveisMovimentos();
+        public bool PodeMoverPara(Posicao posicao)
+        {
+            return MovimentosPossiveis()[posicao.Linha, posicao.Coluna];
+        }
+
+        public abstract bool[,] MovimentosPossiveis();
     }
 }

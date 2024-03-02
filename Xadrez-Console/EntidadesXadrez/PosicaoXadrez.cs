@@ -4,13 +4,13 @@ namespace EntidadesXadrez
 {
     internal class PosicaoXadrez
     {
-        public int Linha { get; set; }
         public char Coluna { get; set; }
+        public int Linha { get; set; }
 
         public PosicaoXadrez(char coluna, int linha)
         {
-            Linha = linha;
             Coluna = coluna;
+            Linha = linha;
         }
 
         public Posicao ToPosicao()
