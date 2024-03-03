@@ -120,10 +120,27 @@ namespace EntidadesXadrez
         {
             Peca pecaCapturada = MovimentarPeca(origem, destino);
 
-            if(VerificarXeque(JogadorAtual))
+            if (VerificarXeque(JogadorAtual))
             {
                 DesfazerMovimento(origem, destino, pecaCapturada);
                 throw new TabuleiroException("Você não pode se colocar em xeque!");
+            }
+
+            Peca pecaMovimentada = Tabuleiro.Peca(destino);
+
+            if (pecaMovimentada is Peao)
+            {
+                if((pecaMovimentada.Cor == Cor.Branca && destino.Linha == 0) 
+                    || (pecaMovimentada.Cor == Cor.Preta && destino.Linha == 7))
+                {
+                    pecaMovimentada = Tabuleiro.RemoverPeca(destino);
+                    _pecas.Remove(pecaMovimentada);
+
+                    Dama dama = new Dama(Tabuleiro, pecaMovimentada.Cor);
+                    Tabuleiro.AdicionarPeca(dama, destino);
+                    _pecas.Add(dama);
+                }
+
             }
 
             if (VerificarXeque(CorAdversaria(JogadorAtual)))
@@ -145,7 +162,6 @@ namespace EntidadesXadrez
                 MudarJogador();
             }
 
-            Peca pecaMovimentada = Tabuleiro.Peca(destino);
 
             if(pecaMovimentada is Peao && (origem.Linha - 2 == destino.Linha || origem.Linha + 2 == destino.Linha))
             {

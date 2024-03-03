@@ -41,6 +41,16 @@ internal class Program
                     Console.WriteLine(e.Message);
                     Console.ReadKey();
                 }
+                catch(IndexOutOfRangeException e)
+                {
+                    Console.WriteLine("Valor inválido!");
+                    Console.ReadKey();
+                }
+                catch(FormatException e)
+                {
+                    Console.WriteLine("Valor inválido!");
+                    Console.ReadKey();
+                }
             }
 
             Console.Clear();

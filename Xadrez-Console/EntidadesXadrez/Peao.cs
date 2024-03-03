@@ -39,13 +39,13 @@ namespace EntidadesXadrez
             if(Cor == Cor.Branca)
             {
                 provavelPosicao.DefinirValores(Posicao.Linha - 2, Posicao.Coluna);
-                if(PodeMover(provavelPosicao) && Tabuleiro.PosicaoValida(provavelPosicao) && QuantidadeMovimentos == 0)
+                if(Tabuleiro.PosicaoValida(provavelPosicao) && PodeMover(provavelPosicao) && QuantidadeMovimentos == 0)
                 {
                     movimentosPossiveis[provavelPosicao.Linha, provavelPosicao.Coluna] = true;
                 }
 
                 provavelPosicao.DefinirValores(Posicao.Linha - 1, Posicao.Coluna);
-                if(PodeMover(provavelPosicao) && Tabuleiro.PosicaoValida(provavelPosicao))
+                if(Tabuleiro.PosicaoValida(provavelPosicao) && PodeMover(provavelPosicao) && !ExisteInimigo(provavelPosicao))
                 {
                     movimentosPossiveis[provavelPosicao.Linha, provavelPosicao.Coluna] = true;
                 }
@@ -86,13 +86,13 @@ namespace EntidadesXadrez
             }
                 
             provavelPosicao.DefinirValores(Posicao.Linha + 2, Posicao.Coluna);
-            if(PodeMover(provavelPosicao) && Tabuleiro.PosicaoValida(provavelPosicao) && QuantidadeMovimentos == 0)
+            if(Tabuleiro.PosicaoValida(provavelPosicao) && PodeMover(provavelPosicao) && QuantidadeMovimentos == 0)
             {
                 movimentosPossiveis[provavelPosicao.Linha, provavelPosicao.Coluna] = true;
             }
 
             provavelPosicao.DefinirValores(Posicao.Linha + 1, Posicao.Coluna);
-            if(PodeMover(provavelPosicao) && Tabuleiro.PosicaoValida(provavelPosicao))
+            if(Tabuleiro.PosicaoValida(provavelPosicao) && PodeMover(provavelPosicao) && !ExisteInimigo(provavelPosicao))
             {
                 movimentosPossiveis[provavelPosicao.Linha, provavelPosicao.Coluna] = true;
             }
