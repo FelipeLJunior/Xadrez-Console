@@ -33,9 +33,30 @@ namespace EntidadesXadrez
             pecaSelecionada.IncrementarMovimento();
             Peca pecaCapturada = Tabuleiro.RemoverPeca(destino);
             Tabuleiro.AdicionarPeca(pecaSelecionada, destino);
+            
             if(pecaCapturada != null) 
             { 
                 _capturadas.Add(pecaCapturada);
+            }
+
+            // Jogada especial: roque pequeno
+            if(pecaSelecionada is Rei && destino.Coluna == origem.Coluna + 2)
+            {
+                Posicao posicaoInicialDaTorreMaisProxima = new Posicao(origem.Linha, origem.Coluna + 3);
+                Posicao posicaoDestinoDaTorreMaisProxima = new Posicao(origem.Linha, origem.Coluna + 1);
+                Peca torreMaisProxima = Tabuleiro.RemoverPeca(posicaoInicialDaTorreMaisProxima);
+                torreMaisProxima.IncrementarMovimento();
+                Tabuleiro.AdicionarPeca(torreMaisProxima, posicaoDestinoDaTorreMaisProxima);
+            }
+            
+            // Jogada especial: roque grande
+            if(pecaSelecionada is Rei && destino.Coluna == origem.Coluna - 2)
+            {
+                Posicao posicaoInicialDaTorreMaisProxima = new Posicao(origem.Linha, origem.Coluna - 4);
+                Posicao posicaoDestinoDaTorreMaisProxima = new Posicao(origem.Linha, origem.Coluna - 1);
+                Peca torreMaisProxima = Tabuleiro.RemoverPeca(posicaoInicialDaTorreMaisProxima);
+                torreMaisProxima.IncrementarMovimento();
+                Tabuleiro.AdicionarPeca(torreMaisProxima, posicaoDestinoDaTorreMaisProxima);
             }
 
             return pecaCapturada;
@@ -50,6 +71,26 @@ namespace EntidadesXadrez
                 _capturadas.Remove(pecaCapturada);
             }
             Tabuleiro.AdicionarPeca(pecaMovimentada, origem);
+
+            // Jogada especial: roque pequeno
+            if (pecaMovimentada is Rei && destino.Coluna == origem.Coluna + 2)
+            {
+                Posicao posicaoAtualDaTorre = new Posicao(origem.Linha, origem.Coluna + 1);
+                Posicao posicaoInicialDaTorre = new Posicao(origem.Linha, origem.Coluna + 3);
+                Peca torreMaisProxima = Tabuleiro.RemoverPeca(posicaoAtualDaTorre);
+                torreMaisProxima.DecrementarMovimento();
+                Tabuleiro.AdicionarPeca(torreMaisProxima, posicaoInicialDaTorre);
+            }
+
+            // Jogada especial: roque grande
+            if (pecaMovimentada is Rei && destino.Coluna == origem.Coluna - 2)
+            {
+                Posicao posicaoAtualDaTorre = new Posicao(origem.Linha, origem.Coluna - 1);
+                Posicao posicaoInicialDaTorre = new Posicao(origem.Linha, origem.Coluna - 4);
+                Peca torreMaisProxima = Tabuleiro.RemoverPeca(posicaoAtualDaTorre);
+                torreMaisProxima.DecrementarMovimento();
+                Tabuleiro.AdicionarPeca(torreMaisProxima, posicaoInicialDaTorre);
+            }
         }
 
         public void RealizarJogada(Posicao origem, Posicao destino)
@@ -233,7 +274,7 @@ namespace EntidadesXadrez
             ColocarNovaPeca(new Cavalo(Tabuleiro, Cor.Branca), 'b', 1);
             ColocarNovaPeca(new Bispo(Tabuleiro, Cor.Branca), 'c', 1);
             ColocarNovaPeca(new Dama(Tabuleiro, Cor.Branca), 'd', 1);
-            ColocarNovaPeca(new Rei(Tabuleiro, Cor.Branca), 'e', 1);
+            ColocarNovaPeca(new Rei(Tabuleiro, Cor.Branca, this), 'e', 1);
             ColocarNovaPeca(new Bispo(Tabuleiro, Cor.Branca), 'f', 1);
             ColocarNovaPeca(new Cavalo(Tabuleiro, Cor.Branca), 'g', 1);
             ColocarNovaPeca(new Torre(Tabuleiro, Cor.Branca), 'h', 1);
@@ -250,7 +291,7 @@ namespace EntidadesXadrez
             ColocarNovaPeca(new Cavalo(Tabuleiro, Cor.Preta), 'b', 8);
             ColocarNovaPeca(new Bispo(Tabuleiro, Cor.Preta), 'c', 8);
             ColocarNovaPeca(new Dama(Tabuleiro, Cor.Preta), 'd', 8);
-            ColocarNovaPeca(new Rei(Tabuleiro, Cor.Preta), 'e', 8);
+            ColocarNovaPeca(new Rei(Tabuleiro, Cor.Preta, this), 'e', 8);
             ColocarNovaPeca(new Bispo(Tabuleiro, Cor.Preta), 'f', 8);
             ColocarNovaPeca(new Cavalo(Tabuleiro, Cor.Preta), 'g', 8);
             ColocarNovaPeca(new Torre(Tabuleiro, Cor.Preta), 'h', 8);
