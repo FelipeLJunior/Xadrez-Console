@@ -1,13 +1,16 @@
 ﻿using EntidadesTabuleiro;
 using EntidadesTabuleiro.Enums;
+using System.Net.Http.Headers;
 
 namespace EntidadesXadrez
 {
     internal class Peao : Peca
     {
-        public Peao(Tabuleiro tabuleiro, Cor cor)
+        private PartidaDeXadrez _partida;
+        public Peao(Tabuleiro tabuleiro, Cor cor, PartidaDeXadrez partida)
             : base(tabuleiro, cor)
         {
+            _partida = partida;
         }
 
         public override string ToString()
@@ -53,11 +56,32 @@ namespace EntidadesXadrez
                     movimentosPossiveis[provavelPosicao.Linha, provavelPosicao.Coluna] = true;
                 }
 
-                provavelPosicao.DefinirValores(Posicao.Linha + 1, Posicao.Coluna - 1);
+                provavelPosicao.DefinirValores(Posicao.Linha - 1, Posicao.Coluna - 1);
                 if(Tabuleiro.PosicaoValida(provavelPosicao) && ExisteInimigo(provavelPosicao))
                 {
                     movimentosPossiveis[provavelPosicao.Linha, provavelPosicao.Coluna] = true;
                 }
+
+                // Jogada especial: En passant
+                if(Posicao.Linha == 3)
+                {
+                    Posicao posicaoEsquerda = new Posicao(Posicao.Linha, Posicao.Coluna - 1);
+                    if(Tabuleiro.PosicaoValida(posicaoEsquerda) 
+                        && ExisteInimigo(posicaoEsquerda) 
+                        && Tabuleiro.Peca(posicaoEsquerda) == _partida.VulneravelEnPassant)
+                    {
+                        movimentosPossiveis[Posicao.Linha - 1, Posicao.Coluna - 1] = true;
+                    }
+
+                    Posicao posicaoDireita = new Posicao(Posicao.Linha, Posicao.Coluna + 1);
+                    if(Tabuleiro.PosicaoValida(posicaoDireita) 
+                        && ExisteInimigo(posicaoDireita) 
+                        && Tabuleiro.Peca(posicaoDireita) == _partida.VulneravelEnPassant)
+                    {
+                        movimentosPossiveis[Posicao.Linha - 1, Posicao.Coluna + 1] = true;
+                    }
+                }
+
                 return movimentosPossiveis;
             }
                 
@@ -83,6 +107,26 @@ namespace EntidadesXadrez
             if(Tabuleiro.PosicaoValida(provavelPosicao) && ExisteInimigo(provavelPosicao))
             {
                 movimentosPossiveis[provavelPosicao.Linha, provavelPosicao.Coluna] = true;
+            }
+
+            // Jogada especial: En passant
+            if (Posicao.Linha == 4)
+            {
+                Posicao posicaoEsquerda = new Posicao(Posicao.Linha, Posicao.Coluna - 1);
+                if (Tabuleiro.PosicaoValida(posicaoEsquerda)
+                    && ExisteInimigo(posicaoEsquerda)
+                    && Tabuleiro.Peca(posicaoEsquerda) == _partida.VulneravelEnPassant)
+                {
+                    movimentosPossiveis[posicaoEsquerda.Linha + 1, posicaoEsquerda.Coluna] = true;
+                }
+
+                Posicao posicaoDireita = new Posicao(Posicao.Linha, Posicao.Coluna + 1);
+                if (Tabuleiro.PosicaoValida(posicaoDireita)
+                    && ExisteInimigo(posicaoDireita)
+                    && Tabuleiro.Peca(posicaoDireita) == _partida.VulneravelEnPassant)
+                {
+                    movimentosPossiveis[posicaoDireita.Linha + 1, posicaoDireita.Coluna] = true;
+                }
             }
 
             return movimentosPossiveis;
