@@ -50,7 +50,7 @@ namespace EntidadesTabuleiro
             return false;
         }
 
-        public bool PodeMoverPara(Posicao posicao)
+        public bool PossibilidadeDeMovimento(Posicao posicao)
         {
             return MovimentosPossiveis()[posicao.Linha, posicao.Coluna];
         }

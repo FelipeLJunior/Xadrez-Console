@@ -17,67 +17,67 @@ namespace EntidadesXadrez
 
         public override bool[,] MovimentosPossiveis()
         {
-            bool[,] possiveisMovimentos = new bool[Tabuleiro.Linhas, Tabuleiro.Colunas];
+            bool[,] movimentosPossiveis = new bool[Tabuleiro.Linhas, Tabuleiro.Colunas];
 
-            Posicao posicaoProvavel = new Posicao(0, 0);
+            Posicao provavelPosicao = new Posicao(0, 0);
 
             // Acima
-            posicaoProvavel.DefinirValores(Posicao.Linha - 1, Posicao.Coluna);
-            if(Tabuleiro.PosicaoValida(posicaoProvavel) && PodeMover(posicaoProvavel))
+            provavelPosicao.DefinirValores(Posicao.Linha - 1, Posicao.Coluna);
+            if(Tabuleiro.PosicaoValida(provavelPosicao) && PodeMover(provavelPosicao))
             {
-                possiveisMovimentos[posicaoProvavel.Linha, posicaoProvavel.Coluna] = true;
+                movimentosPossiveis[provavelPosicao.Linha, provavelPosicao.Coluna] = true;
             }
             
             // Nordeste
-            posicaoProvavel.DefinirValores(Posicao.Linha - 1, Posicao.Coluna + 1);
-            if(Tabuleiro.PosicaoValida(posicaoProvavel) && PodeMover(posicaoProvavel))
+            provavelPosicao.DefinirValores(Posicao.Linha - 1, Posicao.Coluna + 1);
+            if(Tabuleiro.PosicaoValida(provavelPosicao) && PodeMover(provavelPosicao))
             {
-                possiveisMovimentos[posicaoProvavel.Linha, posicaoProvavel.Coluna] = true;
+                movimentosPossiveis[provavelPosicao.Linha, provavelPosicao.Coluna] = true;
             }
             
             // Direita
-            posicaoProvavel.DefinirValores(Posicao.Linha, Posicao.Coluna + 1);
-            if(Tabuleiro.PosicaoValida(posicaoProvavel) && PodeMover(posicaoProvavel))
+            provavelPosicao.DefinirValores(Posicao.Linha, Posicao.Coluna + 1);
+            if(Tabuleiro.PosicaoValida(provavelPosicao) && PodeMover(provavelPosicao))
             {
-                possiveisMovimentos[posicaoProvavel.Linha, posicaoProvavel.Coluna] = true;
+                movimentosPossiveis[provavelPosicao.Linha, provavelPosicao.Coluna] = true;
             }
             
             // Sudeste
-            posicaoProvavel.DefinirValores(Posicao.Linha + 1, Posicao.Coluna + 1);
-            if(Tabuleiro.PosicaoValida(posicaoProvavel) && PodeMover(posicaoProvavel))
+            provavelPosicao.DefinirValores(Posicao.Linha + 1, Posicao.Coluna + 1);
+            if(Tabuleiro.PosicaoValida(provavelPosicao) && PodeMover(provavelPosicao))
             {
-                possiveisMovimentos[posicaoProvavel.Linha, posicaoProvavel.Coluna] = true;
+                movimentosPossiveis[provavelPosicao.Linha, provavelPosicao.Coluna] = true;
             }
             
             // Abaixo
-            posicaoProvavel.DefinirValores(Posicao.Linha + 1, Posicao.Coluna);
-            if(Tabuleiro.PosicaoValida(posicaoProvavel) && PodeMover(posicaoProvavel))
+            provavelPosicao.DefinirValores(Posicao.Linha + 1, Posicao.Coluna);
+            if(Tabuleiro.PosicaoValida(provavelPosicao) && PodeMover(provavelPosicao))
             {
-                possiveisMovimentos[posicaoProvavel.Linha, posicaoProvavel.Coluna] = true;
+                movimentosPossiveis[provavelPosicao.Linha, provavelPosicao.Coluna] = true;
             }
             
             // Sudoeste
-            posicaoProvavel.DefinirValores(Posicao.Linha + 1, Posicao.Coluna - 1);
-            if(Tabuleiro.PosicaoValida(posicaoProvavel) && PodeMover(posicaoProvavel))
+            provavelPosicao.DefinirValores(Posicao.Linha + 1, Posicao.Coluna - 1);
+            if(Tabuleiro.PosicaoValida(provavelPosicao) && PodeMover(provavelPosicao))
             {
-                possiveisMovimentos[posicaoProvavel.Linha, posicaoProvavel.Coluna] = true;
+                movimentosPossiveis[provavelPosicao.Linha, provavelPosicao.Coluna] = true;
             }
             
             // Esquerda
-            posicaoProvavel.DefinirValores(Posicao.Linha, Posicao.Coluna - 1);
-            if(Tabuleiro.PosicaoValida(posicaoProvavel) && PodeMover(posicaoProvavel))
+            provavelPosicao.DefinirValores(Posicao.Linha, Posicao.Coluna - 1);
+            if(Tabuleiro.PosicaoValida(provavelPosicao) && PodeMover(provavelPosicao))
             {
-                possiveisMovimentos[posicaoProvavel.Linha, posicaoProvavel.Coluna] = true;
+                movimentosPossiveis[provavelPosicao.Linha, provavelPosicao.Coluna] = true;
             }
             
             // Noroeste
-            posicaoProvavel.DefinirValores(Posicao.Linha - 1, Posicao.Coluna - 1);
-            if(Tabuleiro.PosicaoValida(posicaoProvavel) && PodeMover(posicaoProvavel))
+            provavelPosicao.DefinirValores(Posicao.Linha - 1, Posicao.Coluna - 1);
+            if(Tabuleiro.PosicaoValida(provavelPosicao) && PodeMover(provavelPosicao))
             {
-                possiveisMovimentos[posicaoProvavel.Linha, posicaoProvavel.Coluna] = true;
+                movimentosPossiveis[provavelPosicao.Linha, provavelPosicao.Coluna] = true;
             }
 
-            return possiveisMovimentos;
+            return movimentosPossiveis;
         }
     }
 }
